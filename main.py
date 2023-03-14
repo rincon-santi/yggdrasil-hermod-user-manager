@@ -32,13 +32,21 @@ def _delete_conversation(user_id:str, conversation_list:str, conversation_id: st
     logging.info("Deleted")
 
 def _assign_conversation(user_id:str, conversation_list:str, conversation_id: str, channel:str):
-    logging.info("Deleting conversation from {}".format(conversation_list))
+    logging.info("Assigning conversation to {}".format(conversation_list))
     firestore_client = firestore.client()
     doc_ref = firestore_client.collection(u'users').document(user_id)
     doc = doc_ref.get().to_dict()
-    doc.update({conversation_list:{channel: conversation_id}})
-    doc_ref.set(doc)
-    logging.info("Deleted")
+    if conversation_list=="ownedConversations":
+        try:
+            previous_list = doc[conversation_list]
+            previous_list.append(conversation_id)
+        except:
+            previous_list = [conversation_id,]
+        doc.update({conversation_list: previous_list})
+    else:
+        doc.update({conversation_list:{channel: conversation_id}})
+        doc_ref.set(doc)
+    logging.info("Assigned")
 
 # Triggered from a message on a Cloud Pub/Sub topic.
 @functions_framework.cloud_event
