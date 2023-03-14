@@ -1,0 +1,16 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - user-manager
+  - --gen2
+  - --region=europe-west1
+  - --source=.
+  - --trigger-topic=$_EVENT_BUS
+  - --runtime=python310
+  - --entry-point=user_manager
+  - --service-account=user-management-cf@$PROJECT_ID.iam.gserviceaccount.com
+  - --set-env-vars=PROJECT_ID=$PROJECT_ID
+  - --project=$PROJECT_ID

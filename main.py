@@ -42,7 +42,7 @@ def _assign_conversation(user_id:str, conversation_list:str, conversation_id: st
 
 # Triggered from a message on a Cloud Pub/Sub topic.
 @functions_framework.cloud_event
-def conversation_manager(cloud_event):
+def user_manager(cloud_event):
     event = json.loads(base64.b64decode(cloud_event.data["message"]["data"]).decode())
     if event['entity']==ENTITY:
         payload = json.loads(event['payload'])
