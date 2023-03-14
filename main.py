@@ -1,5 +1,6 @@
 import os
 import logging
+logging.basicConfig(level=logging.INFO)
 import json
 import firebase_admin
 from firebase_admin import firestore
@@ -45,7 +46,7 @@ def _assign_conversation(user_id:str, conversation_list:str, conversation_id: st
         doc.update({conversation_list: previous_list})
     else:
         doc.update({conversation_list:{channel: conversation_id}})
-        doc_ref.set(doc)
+    doc_ref.set(doc)
     logging.info("Assigned")
 
 # Triggered from a message on a Cloud Pub/Sub topic.
