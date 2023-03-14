@@ -1,0 +1,13 @@
+{
+    "user": {
+        "deleteConversation": {
+            "payload_required": ["conversationId", "conversationList"]
+        },
+        "assignConversation": {
+            "payload_required": ["channel", "conversationId", "conversationList"]
+        },
+        "create": {
+            "payload_required": ["authorizedCommands"]
+        }
+    }
+}
