@@ -9,21 +9,21 @@ import base64
 
 PROJECT_ID = os.environ.get('PROJECT_ID')
 EVENT_BUS = os.environ.get('EVENT_BUS')
-ENTITY = "conversation"
+ENTITY = "user"
 APP = firebase_admin.initialize_app()
 
 def _create_user(user_id:str, payload:Dict):
     logging.info("Creating user {}".format(user_id))
     firestore_client = firestore.client()
     firestore_client.collection(u'users').document(user_id).set({
-        u'activeConversations': {},
+        u'activeConversations': [],
         u'ownedConversations': {},
         u'authorizedCommands': payload['authorizedCommands']
     })
     logging.info("Created")
 
 def _delete_conversation(user_id:str, conversation_list:str, conversation_id: str):
-    logging.info("Deleting conversation from {}".format(conversation_list))
+    logging.info("Deleting conversation from {} for user {}".format(conversation_list, user_id))
     firestore_client = firestore.client()
     doc_ref = firestore_client.collection(u'users').document(user_id)
     doc = doc_ref.get().to_dict()
@@ -32,7 +32,7 @@ def _delete_conversation(user_id:str, conversation_list:str, conversation_id: st
     logging.info("Deleted")
 
 def _assign_conversation(user_id:str, conversation_list:str, conversation_id: str, channel:str):
-    logging.info("Assigning conversation to {}".format(conversation_list))
+    logging.info("Assigning conversation to {} for user {}".format(conversation_list, user_id))
     firestore_client = firestore.client()
     doc_ref = firestore_client.collection(u'users').document(user_id)
     doc = doc_ref.get().to_dict()
