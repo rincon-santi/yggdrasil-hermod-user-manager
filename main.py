@@ -28,7 +28,10 @@ def _delete_conversation(user_id:str, conversation_list:str, conversation_id: st
     firestore_client = firestore.client()
     doc_ref = firestore_client.collection(u'users').document(user_id)
     doc = doc_ref.get().to_dict()
-    doc.update({conversation_list:{key: doc[conversation_list][key] for key in doc[conversation_list].keys() if doc[conversation_list][key]!=conversation_id}})
+    if conversation_list=="ownedConversations":
+        doc.update({conversation_list: [x for x in doc[conversation_list] if x!=conversation_id]})
+    else:
+        doc.update({conversation_list:{key: doc[conversation_list][key] for key in doc[conversation_list].keys() if doc[conversation_list][key]!=conversation_id}})
     doc_ref.set(doc)
     logging.info("Deleted")
 
