@@ -140,9 +140,9 @@ def retrieve_spoke():
     logging.info("Assigning spoke: {} to user: {}".format(spokeId, user_id))
     publish_message(author=author, entityId=user_id, operation="retrieveSpoke",
                     payload=json.dumps({"spokeId": spokeId, "brain": brain,
-                                        **{key: request_json[key] for key in request_json.keys() if key not in ARGS_DEFINITION["assign-conversation"]["args"].keys()}}))
+                                        **{key: request_json[key] for key in request_json.keys() if key not in ARGS_DEFINITION["retrieve-spoke"]["args"].keys()}}))
     response = APP.response_class(
-        response=json.dumps({"payload":{"userId": user_id, "spokeId": spokeId}, "responseMessage":"Assigned spoke {spokeId} to user {user}".format(spokeId=spokeId,user=user_id, channel=channel)}),
+        response=json.dumps({"payload":{"userId": user_id, "spokeId": spokeId}, "responseMessage":"Assigned spoke {spokeId} to user {user}".format(spokeId=spokeId,user=user_id)}),
         status=200,
         mimetype='application/json') 
     return response
