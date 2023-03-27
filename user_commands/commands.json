@@ -1,0 +1,38 @@
+{
+    "create-user": {
+        "args": {
+            "userId": "undefined",
+            "author": "undefined",
+            "authorizedCommands": []
+        },
+        "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/create"
+    },
+    "assign-conversation": {
+        "args": {
+            "author": "undefined",
+            "conversationId": "undefined",
+            "channel": "undefined",
+            "userId": "undefined",
+            "conversationList": "activeConversations"
+        },
+        "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/assign-conversation"
+    },
+    "remove-conversation": {
+        "args": {
+            "author": "undefined",
+            "conversationId": "undefined",
+            "channel": "undefined",
+            "userId": "undefined",
+            "conversationList": "activeConversations"
+        },
+        "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/remove-conversation"
+    },
+    "retrieve-spoke": {
+        "args": {
+            "author": "undefined",
+            "spokeId": "undefined",
+            "brain": "gpt-3.5-turbo"
+        },
+        "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/retrieve-spoke"
+    }
+}
