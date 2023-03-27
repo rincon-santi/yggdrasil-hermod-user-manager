@@ -1,0 +1,3 @@
+google-cloud-pubsub
+functions-framework
+flask
