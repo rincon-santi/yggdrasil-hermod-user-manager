@@ -60,7 +60,7 @@ def _retrieve_spoke(user_id:str, payload:Dict):
     firestore_client = firestore.client()
     doc_ref = firestore_client.collection(u'users').document(user_id).collection(u'spokes').document(spoke_id)
     fs = GCSFileSystem(project=PROJECT_ID)
-    with fs.open("gs://yggdrasil-ai-hermod-spokes/"+user_id+"/"+brain+"/"+spoke_id+".json", "r") as f:
+    with fs.open("gs://yggdrasil-ai-hermod-spokes/"+user_id+"/"+brain+"/"+spoke_id+"/config.json", "r") as f:
         spoke = json.load(f)
     doc_ref.set(spoke)
     logging.info("Retrieved")
