@@ -130,7 +130,7 @@ def assign_conversation():
     return response
 
 @APP.route('/retrieve-spoke', methods=['POST', ])
-def assign_conversation():
+def retrieve_spoke():
     logging.info("Received request to assign conversation: {}".format(request))
     request_json = json.loads(request.data)
     author = request_json['author']
