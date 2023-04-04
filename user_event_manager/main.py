@@ -25,7 +25,7 @@ def _create_user(user_id:str, payload:Dict):
     logging.info("Created")
 
 def _delete_conversation(user_id:str, conversation_list:str, conversation_id: str):
-    ALLOWED_LISTS = ["ownedConversations", "activeConversations"]
+    ALLOWED_LISTS = ["ownedConversations", "activeConversations", "hiddenConversations"]
     if conversation_list not in ALLOWED_LISTS:
         logging.error("Conversation list {} not allowed".format(conversation_list))
         return
@@ -81,6 +81,7 @@ def _delete_spoke(user_id:str, payload:Dict):
 @functions_framework.cloud_event
 def user_manager(cloud_event):
     event = json.loads(base64.b64decode(cloud_event.data["message"]["data"]).decode())
+    logging.info("Received {}".format(event))
     if event['entity']==ENTITY:
         payload = json.loads(event['payload'])
         if event['operation']=="deleteConversation":
