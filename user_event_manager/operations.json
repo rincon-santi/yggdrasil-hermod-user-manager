@@ -4,7 +4,7 @@
             "payload_required": ["conversationId", "conversationList"]
         },
         "assignConversation": {
-            "payload_required": ["channel", "conversationId", "conversationList"]
+            "payload_required": ["conversationId", "conversationList"]
         },
         "create": {
             "payload_required": ["authorizedCommands"]

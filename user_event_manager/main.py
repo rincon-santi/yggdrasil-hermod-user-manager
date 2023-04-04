@@ -25,31 +25,35 @@ def _create_user(user_id:str, payload:Dict):
     logging.info("Created")
 
 def _delete_conversation(user_id:str, conversation_list:str, conversation_id: str):
+    ALLOWED_LISTS = ["ownedConversations", "activeConversations"]
+    if conversation_list not in ALLOWED_LISTS:
+        logging.error("Conversation list {} not allowed".format(conversation_list))
+        return
     logging.info("Deleting conversation from {} for user {}".format(conversation_list, user_id))
     firestore_client = firestore.client()
     doc_ref = firestore_client.collection(u'users').document(user_id)
     doc = doc_ref.get().to_dict()
-    if conversation_list=="ownedConversations":
-        doc.update({conversation_list: [x for x in doc[conversation_list] if x!=conversation_id]})
-    else:
-        doc.update({conversation_list:{key: doc[conversation_list][key] for key in doc[conversation_list].keys() if doc[conversation_list][key]!=conversation_id}})
+    conv_ls = doc[conversation_list]
+    conv_ls = [x for x in doc[conversation_list] if x!=conversation_id]
+    doc[conversation_list]=conv_ls
     doc_ref.set(doc)
     logging.info("Deleted")
 
-def _assign_conversation(user_id:str, conversation_list:str, conversation_id: str, channel:str):
+def _assign_conversation(user_id:str, conversation_list:str, conversation_id: str):
+    ALLOWED_LISTS = ["ownedConversations", "activeConversations"]
+    if conversation_list not in ALLOWED_LISTS:
+        logging.error("Conversation list {} not allowed".format(conversation_list))
+        return
     logging.info("Assigning conversation to {} for user {}".format(conversation_list, user_id))
     firestore_client = firestore.client()
     doc_ref = firestore_client.collection(u'users').document(user_id)
     doc = doc_ref.get().to_dict()
-    if conversation_list=="ownedConversations":
-        try:
-            previous_list = doc[conversation_list]
-            previous_list.append(conversation_id)
-        except:
-            previous_list = [conversation_id,]
-        doc.update({conversation_list: previous_list})
-    else:
-        doc.update({conversation_list:{channel: conversation_id}})
+    try:
+        previous_list = doc[conversation_list]
+        previous_list.append(conversation_id)
+    except:
+        previous_list = [conversation_id,]
+    doc.update({conversation_list: previous_list})
     doc_ref.set(doc)
     logging.info("Assigned")
 
