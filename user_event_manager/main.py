@@ -87,7 +87,7 @@ def user_manager(cloud_event):
         if event['operation']=="deleteConversation":
             _delete_conversation(user_id=event['entityId'], conversation_list=payload['conversationList'], conversation_id=payload["conversationId"])
         elif event['operation']=="assignConversation":
-            _assign_conversation(user_id=event['entityId'], conversation_list=payload['conversationList'], conversation_id=payload["conversationId"], channel=payload["channel"])
+            _assign_conversation(user_id=event['entityId'], conversation_list=payload['conversationList'], conversation_id=payload["conversationId"])
         elif event['operation']=="create":
             _create_user(user_id=event['entityId'], payload=json.loads(event["payload"]))
         elif event['operation']=="retrieveSpoke":
