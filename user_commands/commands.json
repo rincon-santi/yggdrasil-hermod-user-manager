@@ -3,7 +3,8 @@
         "args": {
             "userId": "undefined",
             "author": "undefined",
-            "authorizedCommands": []
+            "authorizedCommands": [],
+            "subscription": "default"
         },
         "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/create"
     },
