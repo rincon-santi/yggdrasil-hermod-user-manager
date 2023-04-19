@@ -7,7 +7,7 @@
             "payload_required": ["conversationId", "conversationList"]
         },
         "create": {
-            "payload_required": ["authorizedCommands"]
+            "payload_required": ["authorizedCommands", "subscription"]
         },
         "retrieveSpoke": {
             "payload_required": ["spokeId", "brain"]

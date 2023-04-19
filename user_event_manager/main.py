@@ -8,11 +8,18 @@ import functions_framework
 from typing import Dict
 import base64
 from gcsfs import GCSFileSystem
+import secrets
 
 PROJECT_ID = os.environ.get('PROJECT_ID')
 EVENT_BUS = os.environ.get('EVENT_BUS')
 ENTITY = "user"
 APP = firebase_admin.initialize_app()
+
+def _generate_api_key(user_id: str) -> str:
+    """Generates a unique API key for the given user ID."""
+    random_bytes = secrets.token_bytes(16)
+    api_key = user_id + '-' + random_bytes.hex()
+    return api_key
 
 def _create_user(user_id:str, payload:Dict):
     logging.info("Creating user {}".format(user_id))
@@ -20,6 +27,11 @@ def _create_user(user_id:str, payload:Dict):
     firestore_client.collection(u'users').document(user_id).set({
         u'activeConversations': [],
         u'ownedConversations': {},
+        u'apiKey': _generate_api_key(user_id),
+        u'subscribedNews': ['General Interest',],
+        u'subscription': payload['subscription'],
+        u'conversationCount': 0,
+        u'spokeCount': 0,
         u'authorizedCommands': payload['authorizedCommands']
     })
     logging.info("Created")
