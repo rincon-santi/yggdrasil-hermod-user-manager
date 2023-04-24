@@ -66,6 +66,8 @@ def _assign_conversation(user_id:str, conversation_list:str, conversation_id: st
     except:
         previous_list = [conversation_id,]
     doc.update({conversation_list: previous_list})
+    if conversation_list == "ownedConversations":
+        doc.update({"conversationCount": doc["conversationCount"]+1})
     doc_ref.set(doc)
     logging.info("Assigned")
 
