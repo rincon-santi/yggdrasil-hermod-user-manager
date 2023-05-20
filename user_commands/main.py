@@ -21,7 +21,8 @@ ARGS_DEFINITION = {
             "userId": "undefined",
             "author": "undefined",
             "authorizedCommands": [],
-            "subscription": "default"
+            "subscription": "default",
+            "tenant": "self"
         },
         "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/create"
     },
@@ -105,6 +106,7 @@ def create_user():
     publish_message(author=author, entityId=user_id, operation="create",
                     payload=json.dumps({"authorizedCommands": authorizedCommands,
                                         "subscription": request_json["subscription"],
+                                        "tenant": request_json["tenant"],
                                         **{key: request_json[key] for key in request_json.keys() if key not in ARGS_DEFINITION["create-user"]["args"].keys()}}))
     response = APP.response_class(
         response=json.dumps({"payload":{"userId": user_id}, "responseMessage":"Created user {id} with auth commands {comm}".format(id=user_id,comm=authorizedCommands)}),

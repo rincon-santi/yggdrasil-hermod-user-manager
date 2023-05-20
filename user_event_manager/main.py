@@ -23,10 +23,14 @@ def _generate_api_key(user_id: str) -> str:
 
 def _create_user(user_id:str, payload:Dict):
     logging.info("Creating user {}".format(user_id))
+    tenant = payload['tenant'] if 'tenant' in payload else 'self'
     firestore_client = firestore.client()
     firestore_client.collection(u'users').document(user_id).set({
         u'activeConversations': [],
         u'ownedConversations': {},
+        u'tenant': tenant,
+        u'friends': [],
+        u'commandGroup': ['basic',],
         u'apiKey': _generate_api_key(user_id),
         u'subscribedNews': ['General Interest',],
         u'subscription': payload['subscription'],
