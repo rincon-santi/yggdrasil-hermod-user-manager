@@ -1,38 +1,181 @@
 {
     "create-user": {
+        "description": {
+            "EN": "Creates a new user in the database"
+        },
+        "category": "basic",
         "args": {
-            "userId": "undefined",
-            "author": "undefined",
-            "authorizedCommands": [],
-            "subscription": "default"
+            "userId": {
+                "description": {
+                    "EN": "The user's ID"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "author": {
+                "description": {
+                    "EN": "The author of the command"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "authorizedCommands": {
+                "description": {
+                    "EN": "Commands the user is authorized to use"
+                },
+                "type": "array",
+                "required": false,
+                "default": []
+            },
+            "tenant": {
+                "description": {
+                    "EN": "The user's tenant"
+                },
+                "type": "string",
+                "required": false,
+                "default": "self"
+            },
+            "subscription": {
+                "description": {
+                    "EN": "The user's subscription level"
+                },
+                "type": "string",
+                "required": false,
+                "default": "default"
+            }
         },
         "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/create"
     },
     "assign-conversation": {
+        "description": {
+            "EN": "Assigns a conversation to a user"
+        },
+        "category": "basic",
         "args": {
-            "author": "undefined",
-            "conversationId": "undefined",
-            "channel": "undefined",
-            "userId": "undefined",
-            "conversationList": "activeConversations"
+            "author": {
+                "description": {
+                    "EN": "The author of the command"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "conversationId": {
+                "description": {
+                    "EN": "The conversation's ID"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "channel": {
+                "description": {
+                    "EN": "The channel the conversation is on"
+                },
+                "type": "string",
+                "required": false,
+                "default": "undefined"
+            },
+            "userId": {
+                "description": {
+                    "EN": "The user's ID"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "conversationList": {
+                "description": {
+                    "EN": "The list of conversations to assign the conversation to"
+                },
+                "type": "string",
+                "required": false,
+                "default": "activeConversations"
+            }
         },
         "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/assign-conversation"
     },
     "remove-conversation": {
+        "description": {
+            "EN": "Removes a conversation from a user"
+        },
+        "category": "basic",
         "args": {
-            "author": "undefined",
-            "conversationId": "undefined",
-            "channel": "undefined",
-            "userId": "undefined",
-            "conversationList": "activeConversations"
+            "author": {
+                "description": {
+                    "EN": "The author of the command"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "conversationId": {
+                "description": {
+                    "EN": "The conversation's ID"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "channel": {
+                "description": {
+                    "EN": "The channel the conversation is on"
+                },
+                "type": "string",
+                "required": false,
+                "default": "undefined"
+            },
+            "userId": {
+                "description": {
+                    "EN": "The user's ID"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "conversationList":{
+                "description": {
+                    "EN": "The list of conversations to remove the conversation from"
+                },
+                "type": "string",
+                "required": false,
+                "default": "activeConversations"
+            }
         },
         "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/remove-conversation"
     },
     "retrieve-spoke": {
+        "description": {
+            "EN": "Retrieves a spoke from the database"
+        },
+        "category": "basic",
         "args": {
-            "author": "undefined",
-            "spokeId": "undefined",
-            "brain": "gpt-3.5-turbo"
+            "author": {
+                "description": {
+                    "EN": "The author of the command"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "spokeId": {
+                "description": {
+                    "EN": "The spoke's ID"
+                },
+                "type": "string",
+                "required": true,
+                "default": "undefined"
+            },
+            "brain": {
+                "description": {
+                    "EN": "The brain to use"
+                },
+                "type": "string",
+                "required": false,
+                "default": "gpt-3.5-turbo"
+            }
         },
         "endpoint":"https://user-commands-ai32xjq4va-ew.a.run.app/retrieve-spoke"
     }
